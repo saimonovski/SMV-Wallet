@@ -1,0 +1,133 @@
+#Autor pluginu: Saimonovski
+
+
+config-version: 1
+
+#dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
+database:
+  host: 192.168.1.1
+  databse-name: "nazwa_bazy"
+  user-name: "root"
+  password: "password"
+  port: 3306
+
+#  #komendy
+# dla graczy:
+# /portfel
+# /itemshop
+# dla administracji:
+# /portfel (add/set/remove) (nick/all) (ilosc)
+
+#placeholdery:
+# %portfel_balance% - balans ilosci vpln w portfelu
+
+#Permisje:
+# svm.portfel.admin - dostep do komend administratora
+# smv.portfel.gracz - dostep do komend gracza (odrazu nadawana graczowi)
+
+fill-material: "AIR" #material do wypelnienia na tlo
+
+currency-symbol: "vPLN"
+
+#konfiguracja przedmiotu do zamykania menu. Widoczny w glownym menu
+exit-button:
+  slot: 0
+  display-name: "<red><bold>Zamknij</red></bold>"
+  lore:
+    - "<white>Kliknij aby zamknac</white>"
+  enchant-glow: true
+
+  #konfiguracja przedmiotu do powrotu do glownego menu. Widoczny w menu kategorii
+return-button:
+  slot: 0
+  display-name: "<red><bold>Powrot</red></bold>"
+  lore:
+    - "<white>Kliknij aby powrocic do glownego menu</white>"
+
+categories:
+  category_id:
+    title-gui: "<red><bold>Testowa katefgoria</bold></red>"
+    display-name: "<red><bold> Kategoria produktow </bold></red>"
+    material: "DIAMOND"
+    lore:
+      - "<white> Kliknij aby zobaczyc produkty </white>"
+    slot: 34 #slot w ktorym bedzie widoczna kategoria
+    enchant-glow: true #czy powinien byc glow taki jak maja enchantowane itemki
+    model-data: -1 #custom model data przedmiotu. Daj na -1 aby wylaczyc
+    fill-material: "AIR" #material jakim powinno zostac wypelnione gui po otwarciu kategori
+    size: 27 #rozmiar gui, musi byc wielokrotnoscia 9 !
+    #Lista przedmiotow znajdujacych sie w kategorii (do zakupu, konfiguracja przedmiotow ponizej)
+    #Jesli lista jest pusta lub zakomentowana nie otworzy sie zadn gui z przedmiotami
+    contains-items:
+      item_id: 1 #klucz czyli item_id to jest id przedmiotu a liczba to slot w ktorym ma sie pojawic
+
+  information:
+    display-name: "<red><bold> Witaj w portfelu </bold></red>"
+    material: "STONE"
+    lore:
+      - "<white> Witaj %player% </white>"
+      - "<white> Twoj stan konta wynosi: %portfel_balance% </white>"
+    slot: 35
+    enchant-glow: true
+    model-data: -1
+    fill-material: "AIR"
+    size: 27
+
+confirm-gui:
+  fill-material: "BLACK_STAINED_GLASS_PANE"
+  title: "<green>Potwierdz zakup rangi</green>"
+  size: 9
+  confirm-button:
+    name: "<green>Potwierdz</green>"
+    material: "GREEN_WOOL"
+    lore:
+      - "<white>Kliknij aby potwierdzic</white>"
+    slot: 5
+  cancel-button:
+    name: "<red>Anuluj</red>"
+    material: "RED_WOOL"
+    lore:
+      - "<red>Kliknij aby anulowac</red>"
+    slot: 4
+#  contains-items:  #po kliknieciu sie nic nie stanie poniewaz lista przedmiotow jest zakomentowana
+#  item_id: 1
+items:
+  item_id:
+    display-name: "<red><bold> Ranga Hej </bold></red>"
+    material: "DIAMOND"
+    itemAmount: 1 #amount przedmiotu
+    lore:
+      - "<white> Kliknij aby kupic range </white>"
+    price: 10.0 #Cena przedmiotu
+    enchant-glow: true #czy powinien byc glow taki jak maja enchantowane itemki
+    model-data: -1 #custom model data przedmiotu. Daj na -1 aby wylaczyc
+    #Lista komend do wykonania przez konsole
+    # %player% - nazwa gracza
+    commands:
+      - "say %player% Zakupil range"
+
+daily-reward:
+  display-name: "<gold><bold>DZienna nagroda</gold></bold>"
+  material: "EMERALD"
+  lore:
+    - "<white> Kliknij aby wylosowac dienna nagrode</white>"
+  min-amount: 0.1
+  max-amount: 1.0
+  model-data: -1
+  slot: -1 #slot w ktoym ma sie pojawic, daj na -1 aby wylaczyc
+
+
+messages:
+  daily-reward-message: #wysylane podczas odbierania dziennej nagrody
+    type: ACTIONBAR #typ wiadomosci dostepne: TITLE, SUBTITLE, BOSSBAR, CHAT, ACTIONBAR, DISABLED
+    message: "<blue> Wylosowales %amount% pieniedzy"
+
+  balance-updated: #wysylane podczas dostania pieniedzy za pomoca komendy
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, BOSSBAR, CHAT, ACTIONBAR, DISABLED
+    message: "<blue> Twoje konto zostalo doladowane kwota %amount%"
+
+
+
+
+
+# Powered by saimverse, www.saimverse.pl

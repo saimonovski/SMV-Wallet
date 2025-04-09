@@ -1,0 +1,3 @@
+rootProject.name = 'SMV-Wallet-Treedix'
+include 'api'
+
