@@ -1,6 +1,7 @@
 package io.github.saimonovski.smv.wallet.api.guis;
 
 import io.github.saimonovski.smv.wallet.api.entity.Category;
+import io.github.saimonovski.smv.wallet.api.entity.Gui;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CategoryGui implements InventoryHolder {
+public class CategoryGui implements InventoryHolder, Gui {
     private final Inventory inventory;
     private final Map<Integer,InventoryButton> buttonMap;
     private CategoryGui(int size, Component title, Map<Integer,InventoryButton> map){
@@ -25,6 +26,7 @@ public class CategoryGui implements InventoryHolder {
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
         return this.inventory;
     }
+   @Override
     public void handleClick(InventoryClickEvent e){
         int slot = e.getRawSlot();
         InventoryButton button = buttonMap.get(slot);
@@ -58,9 +60,7 @@ public class CategoryGui implements InventoryHolder {
             return
             addButton(product.slot(),InventoryButton.of(
                event -> {
-                   if(!product.buy(event.getWhoClicked().getUniqueId())) return;
-                   product.executeCommands((Player) event.getWhoClicked());
-                   // TODO: 09.04.2025 send  a message
+                   // TODO: 09.04.2025 send  a message & open Confirm Gui
                }, product.itemStack()));
         }
 

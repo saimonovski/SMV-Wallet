@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 public interface Button {
    @NotNull Consumer<InventoryClickEvent> action();
-   int slot();
+
    ItemStack itemStack();
+   int slot();
 }

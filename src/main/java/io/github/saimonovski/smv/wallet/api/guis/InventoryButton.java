@@ -1,12 +1,14 @@
 package io.github.saimonovski.smv.wallet.api.guis;
 
+import io.github.saimonovski.smv.wallet.api.buttons.Button;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-public class InventoryButton {
+public class InventoryButton  {
     private final Consumer<InventoryClickEvent> consumer;
     private final ItemStack itemStack;
 
@@ -27,4 +29,6 @@ public class InventoryButton {
     public void decorate(int slot, Inventory inventory){
         inventory.setItem(slot,this.itemStack);
     }
+
+
 }
