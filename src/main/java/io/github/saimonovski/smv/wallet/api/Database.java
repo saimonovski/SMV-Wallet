@@ -12,4 +12,6 @@ public interface Database {
     void addBalance(UUID id, double amount);
 
     void removeBalance(UUID id, double amount);
+
+    boolean checkCooldown();
 }

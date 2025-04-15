@@ -32,10 +32,10 @@ public class ConfirmGui implements InventoryHolder, Gui {
     Map<Integer,InventoryButton> buttons = new HashMap<>();
 
 
-    public ConfirmGui(Product productToBuy, Config config, ConfirmButton confirmButton, CancelButton cancelButton, int itemSlot) {
+    public ConfirmGui(Product productToBuy, Config config, int itemSlot) {
         this.productToBuy = productToBuy;
-        this.confirmButton = confirmButton;
-        this.cancelButton = cancelButton;
+        this.confirmButton = config.confirmButton();
+        this.cancelButton = config.cancelButton();
         this.itemSlot = itemSlot;
         buttons.put(itemSlot,InventoryButton.of(e -> e.setCancelled(true),productToBuy.itemStack()));
         buttons.put(this.confirmButton.slot(),InventoryButton.of(this.confirmButton.action(),

@@ -18,7 +18,8 @@ public interface ConfirmButton extends Button {
             event.setCancelled(true);
             event.getWhoClicked().closeInventory();
             productToBuy().buy(event.getWhoClicked().getUniqueId());
-
-        }
+            //todo send a message
+        };
     }
+    void setProduct(Product product);
 }

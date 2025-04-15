@@ -2,7 +2,7 @@ package io.github.saimonovski.smv.wallet.api.object;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.route.Route;
-import io.github.saimonovski.smv.wallet.api.buttons.instances.DailyButton;
+import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
@@ -19,6 +19,16 @@ public interface Config {
     @NotNull String databaseName();
     @NotNull String databaseUserName();
     @NotNull String databasePassword();
+    @NotNull
+    ConfirmButton confirmButton();
+    @NotNull
+    BackButton backButton();
+   @NotNull
+   CancelButton cancelButton();
+   @NotNull
+   DailyButton dailyButton();
+   @NotNull
+    ExitButton exitButton();
     int databasePort();
     default String databaseTablePrefix(){
         return "portfel_";
@@ -38,7 +48,7 @@ public interface Config {
     @NotNull
     Component getMainGuiTitle();
     int getMainGuiSize();
-    @NotNull DailyButton button();
+
    @NotNull
    YamlDocument configFile();
 

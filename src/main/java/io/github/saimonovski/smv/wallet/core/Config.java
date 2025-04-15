@@ -9,15 +9,18 @@ import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import dev.dejvokep.boostedyaml.spigot.SpigotSerializer;
 import io.github.saimonovski.smv.wallet.Wallet;
-import io.github.saimonovski.smv.wallet.api.buttons.instances.DailyButton;
+import io.github.saimonovski.smv.wallet.api.Database;
+import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
+import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static io.github.saimonovski.smv.wallet.core.utils.SerializeUtils.*;
 
@@ -151,15 +154,130 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
         return loadSize(configFile().getSection("main-gui"));
     }
 
-    @NotNull
-    @Override
-    public DailyButton button() {
-        return null;
-    }
+
 
     @NotNull
     @Override
     public YamlDocument configFile() {
         return this.config;
+    }
+
+    @NotNull
+    @Override
+    public ConfirmButton confirmButton() {
+        return new ConfirmButton() {
+            private Product product;
+            @Nullable
+            @Override
+            public Product productToBuy() {
+                return this.product;
+            }
+
+            @Override
+            public void setProduct(Product product) {
+                this.product = product;
+            }
+
+            @Override
+            public ItemStack itemStack() {
+                return loadItemStack(configFile().getSection("confirm-gui.confirm-button"));
+            }
+
+            @Override
+            public int slot() {
+                return loadSlot(configFile().getSection("confirm-gui.confirm-button"));
+            }
+        };
+    }
+
+    @NotNull
+    @Override
+    public BackButton backButton() {
+        return new BackButton() {
+            @Override
+            public io.github.saimonovski.smv.wallet.api.object.Config config() {
+                return wallet.config();
+            }
+
+
+            @Override
+            public ItemStack itemStack() {
+                return loadItemStack(configFile().getSection("return-button"));
+            }
+
+            @Override
+            public int slot() {
+                return loadSlot(configFile().getSection("return-button"));
+            }
+        };
+    }
+
+    @NotNull
+    @Override
+    public CancelButton cancelButton() {
+        return new CancelButton() {
+            @Override
+            public ItemStack itemStack() {
+                return loadItemStack(configFile().getSection("confirm-gui.cancel-button"));
+            }
+
+            @Override
+            public int slot() {
+                return loadSlot(configFile().getSection("confirm-gui.cancel-button"));
+
+            }
+        };
+    }
+
+    @NotNull
+    @Override
+    public DailyButton dailyButton() {
+        return new DailyButton() {
+            @Override
+            public Database database() {
+                return wallet.database();
+            }
+
+            @Override
+            public EconomyProvider provider() {
+                return wallet.provider();
+            }
+
+            @Override
+            public double minAmount() {
+                return configFile().getSection("daily-reward").getDouble("min-amount", 0.0);
+            }
+
+            @Override
+            public double maxAmount() {
+                return configFile().getSection("daily-reward").getDouble("max-amount", 0.0);
+            }
+
+            @Override
+            public ItemStack itemStack() {
+                return loadItemStack(configFile().getSection("daily-reward"));}
+
+            @Override
+            public int slot() {
+                return loadSlot(configFile().getSection("daily-reward"));}
+
+        };
+    }
+
+    @NotNull
+    @Override
+    public ExitButton exitButton() {
+        return new ExitButton() {
+            @Override
+            public ItemStack itemStack() {
+                return loadItemStack(configFile().getSection("exit-button"));
+            }
+
+            @Override
+            public int slot() {
+                return loadSlot(configFile().getSection("exit-button"));
+
+            }
+        };
     }
 }
