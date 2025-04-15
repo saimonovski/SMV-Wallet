@@ -1,11 +1,12 @@
 package io.github.saimonovski.smv.wallet.api.guis;
 
-import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
+import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
 import io.github.saimonovski.smv.wallet.api.object.Config;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -18,13 +19,16 @@ import java.util.Map;
 public class CategoryGui implements InventoryHolder, Gui {
     private final Inventory inventory;
     private final Map<Integer,InventoryButton> buttonMap;
-    private CategoryGui(int size, Component title, Map<Integer,InventoryButton> map){
+    private final Material material;
+    private CategoryGui(int size, Component title, Map<Integer,InventoryButton> map, Material material){
         this.inventory = Bukkit.createInventory(null,size,title);
         this.buttonMap = map;
+        this.material = material;
     }
     @Override
     public @NotNull Inventory getInventory() {
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
+        BackgroundItem.fillBackGround(this.material,inventory);
         return this.inventory;
     }
    @Override
@@ -50,6 +54,7 @@ public class CategoryGui implements InventoryHolder, Gui {
         private int size;
         private final Map<Integer,InventoryButton> buttons = new HashMap<>();
         private Config config;
+        private Material material;
 
         public Builder addButton(int slot, InventoryButton button){
             this.buttons.put(slot,button);
@@ -72,6 +77,10 @@ public class CategoryGui implements InventoryHolder, Gui {
                    // TODO: 09.04.2025 send  a message
                }, product.itemStack()));
         }
+        public Builder setMaterial(Material material){
+            this.material = material;
+            return this;
+        }
 
         public Builder setTitle(Component title) {
             this.title = title;
@@ -83,7 +92,7 @@ public class CategoryGui implements InventoryHolder, Gui {
             return this;
         }
         public CategoryGui build(){
-            return new CategoryGui(this.size % 9 != 0 ? 54 : this.size,this.title,this.buttons);
+            return new CategoryGui(this.size % 9 != 0 ? 54 : this.size,this.title,this.buttons, this.material);
         }
     }
 }
