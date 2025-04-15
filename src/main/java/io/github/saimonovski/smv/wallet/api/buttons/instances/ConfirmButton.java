@@ -18,7 +18,7 @@ public interface ConfirmButton extends Button {
             event.setCancelled(true);
             event.getWhoClicked().closeInventory();
            if(! productToBuy().buy(event.getWhoClicked().getUniqueId())){
-               // TODO: 15.04.2025  send a failder messahe 
+               // TODO: 15.04.2025  send a failder messahe
            }
             //todo send a message
         };

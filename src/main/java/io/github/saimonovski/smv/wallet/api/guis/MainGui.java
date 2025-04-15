@@ -2,8 +2,10 @@ package io.github.saimonovski.smv.wallet.api.guis;
 
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
+import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -16,13 +18,16 @@ import java.util.Map;
 public class MainGui implements InventoryHolder, Gui {
     private final Inventory inventory;
     private final Map<Integer,InventoryButton> buttonMap;
-    private MainGui(int size, Component title, Map<Integer,InventoryButton> map){
+    private final Material material;
+    private MainGui(int size, Component title, Map<Integer,InventoryButton> map, Material material){
         this.inventory = Bukkit.createInventory(null,size,title);
         this.buttonMap = map;
+        this.material = material;
     }
     @Override
     public @NotNull Inventory getInventory() {
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
+        BackgroundItem.fillBackGround(this.material,this.inventory);
         return this.inventory;
     }
     @Override
@@ -47,6 +52,8 @@ public class MainGui implements InventoryHolder, Gui {
         private Component title;
         private int size;
         private final Map<Integer,InventoryButton> buttons = new HashMap<>();
+        private Material material;
+
         public Builder addButton(int slot, InventoryButton button){
             this.buttons.put(slot,button);
             return this;
@@ -72,7 +79,12 @@ public class MainGui implements InventoryHolder, Gui {
             return this;
         }
         public MainGui build(){
-            return new MainGui(this.size % 9 != 0 ? 54 : this.size,this.title,this.buttons);
+            return new MainGui(this.size % 9 != 0 ? 54 : this.size,this.title,this.buttons, this.material);
+        }
+
+        public Builder setFillMaterial(Material material) {
+            this.material = material;
+            return this;
         }
     }
 }

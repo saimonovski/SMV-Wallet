@@ -105,7 +105,9 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
     public @NotNull MainGui mainGui() {
         MainGui.Builder gui = MainGui.builder()
                 .setSize(getMainGuiSize() %9 == 0 ? getMainGuiSize() : 54)
-                .setTitle(getMainGuiTitle());
+                .setTitle(getMainGuiTitle())
+                .setFillMaterial(loadFillMaterial(configFile().getSection("main-gui")))
+                        .addButton(exitButton().slot(), exitButton().build());
 
         categories().forEach(gui::addCategory);
         return gui.build();
