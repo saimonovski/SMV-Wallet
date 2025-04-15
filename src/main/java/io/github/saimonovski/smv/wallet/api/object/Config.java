@@ -53,4 +53,5 @@ public interface Config {
    YamlDocument configFile();
 
 
+    boolean useMysql();
 }

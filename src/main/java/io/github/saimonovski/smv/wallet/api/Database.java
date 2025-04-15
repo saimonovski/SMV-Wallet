@@ -1,11 +1,12 @@
 package io.github.saimonovski.smv.wallet.api;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 public interface Database {
     boolean connect();
     boolean disconnect();
-    void initalizeTables();
+    void initalizeTables() throws SQLException;
     double getBalance(UUID id);
     void setBalance(UUID id, double newBalance);
 
@@ -13,5 +14,9 @@ public interface Database {
 
     void removeBalance(UUID id, double amount);
 
-    boolean checkCooldown();
+
+
+    boolean checkCooldown(UUID id);
+
+    void setOnCooldown(UUID id);
 }

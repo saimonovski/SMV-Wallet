@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.core;
+package io.github.saimonovski.smv.wallet.core.objects;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
@@ -33,6 +33,7 @@ import java.util.Objects;
 public class Config implements io.github.saimonovski.smv.wallet.api.object.Config {
     private final Wallet wallet;
     private final YamlDocument config;
+
 
     public Config(Wallet wallet) throws IOException {
         this.wallet = wallet;
@@ -164,6 +165,11 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
     @Override
     public YamlDocument configFile() {
         return this.config;
+    }
+
+    @Override
+    public boolean useMysql() {
+        return configFile().getSection("")
     }
 
     @NotNull

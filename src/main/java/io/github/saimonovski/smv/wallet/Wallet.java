@@ -10,7 +10,19 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 public final class Wallet extends JavaPlugin implements io.github.saimonovski.smv.wallet.api.Wallet {
-  private  io.github.saimonovski.smv.wallet.core.Config config;
+  private io.github.saimonovski.smv.wallet.core.objects.Config config;
+  private io.github.saimonovski.smv.wallet.core.objects.EconomyProvider provider;
+  /*
+  todo
+  komendy
+baza danych
+econiomy providder instance
+wiadomosci
+
+make todos from project
+
+make test
+   */
 
     @Override
     public void onEnable() {
@@ -21,11 +33,11 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
     getLogger().info("Laczenie z baza danych...");
     //todo
         getLogger().info("Ladowanie Economy Provider...");
-        //todo
+        this.provider = new io.github.saimonovski.smv.wallet.core.objects.EconomyProvider(database());
         getLogger().info("Ladowanie komend...");
     getLogger().info("ladowanie configu...");
         try {
-            this.config = new io.github.saimonovski.smv.wallet.core.Config(this);
+            this.config = new io.github.saimonovski.smv.wallet.core.objects.Config(this);
         } catch (IOException e) {
             getLogger().severe("Wystapil blad podczas ladowania configu. Sprawdz plik lub skontaktuj sie z tworca " +
                     "pluginu \n :: Wallet.java:26");
@@ -48,7 +60,7 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
 
     @Override
     public @NotNull EconomyProvider provider() {
-        return null;
+        return this.provider;
     }
 
     @Override

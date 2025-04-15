@@ -22,10 +22,11 @@ public interface DailyButton extends Button {
     default Consumer<InventoryClickEvent> action(){
         return e ->{
             Player player = (Player) e.getWhoClicked();
-            if(!database().checkCooldown()){
+            if(!database().checkCooldown(player.getUniqueId())){
                 //todo send a message
             return;
             }
+            database().setOnCooldown(player.getUniqueId());
             provider().addBalance(player.getUniqueId(),new Random().nextDouble(minAmount(),maxAmount()));
             //todo send a message with success drop
         };
