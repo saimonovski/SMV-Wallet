@@ -22,9 +22,9 @@ public interface Category {
               .setTitle(title())
               .setConfig(wallet().config())
               .setMaterial(SerializeUtils.loadFillMaterial(wallet().config().configFile().getSection("categories."+id())))
+              .addButton(wallet().config().backButton().slot(),wallet().config().backButton().build())
               .setSize(size());
       products().forEach(builder::addProduct);
-
       builder.build().openInventory(player);
   }
     int slot();
