@@ -23,19 +23,16 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class ConfirmGui implements InventoryHolder, Gui {
-    private final Product productToBuy;
 
     private final Config config;
-    private final int itemSlot;
     Map<Integer,InventoryButton> buttons = new HashMap<>();
 
 
-    public ConfirmGui(Product productToBuy, Config config, int itemSlot) {
-        this.productToBuy = productToBuy;
+    public ConfirmGui(Product productToBuy, Config config) {
         ConfirmButton confirmButton = config.confirmButton();
         confirmButton.setProduct(productToBuy);
         CancelButton cancelButton = config.cancelButton();
-        this.itemSlot = itemSlot;
+        int itemSlot = config.configFile().getInt("confirm-gui.item-slot", 0);
         buttons.put(itemSlot,InventoryButton.of(e -> e.setCancelled(true),productToBuy.itemStack()));
         buttons.put(confirmButton.slot(),InventoryButton.of(confirmButton.action(),
                 confirmButton.itemStack()));

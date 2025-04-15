@@ -140,6 +140,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
                 .setProducts(products)
                 .setSlot(slot)
                 .setSize(size)
+                .setWallet(this.wallet)
                 .build();
     }
 

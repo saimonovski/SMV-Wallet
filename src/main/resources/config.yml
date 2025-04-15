@@ -83,12 +83,13 @@ confirm-gui:
   fill-material: "BLACK_STAINED_GLASS_PANE"
   title-gui: "<green>Potwierdz zakup rangi</green>"
   size: 9
+  item-slot: 5 #slot na ktorym ma sie pojawic ranga do zakpu
   confirm-button:
     display-name: "<green>Potwierdz</green>"
     material: "GREEN_WOOL"
     lore:
       - "<white>Kliknij aby potwierdzic</white>"
-    slot: 5
+    slot: 6
   cancel-button:
     display-name: "<red>Anuluj</red>"
     material: "RED_WOOL"
