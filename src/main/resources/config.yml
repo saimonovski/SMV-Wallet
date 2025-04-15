@@ -5,6 +5,7 @@ config-version: 1
 
 #dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
 database:
+  use-mysql: false #czy uzywac mysql czy bazy danych flat
   host: 192.168.1.1
   databse-name: "nazwa_bazy"
   user-name: "root"

@@ -169,7 +169,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
 
     @Override
     public boolean useMysql() {
-        return configFile().getSection("")
+        return configFile().getBoolean("database.use-mysql", false);
     }
 
     @NotNull
