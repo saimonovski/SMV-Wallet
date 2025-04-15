@@ -15,8 +15,6 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
   /*
   todo
   komendy
-baza danych
-econiomy providder instance
 wiadomosci
 
 make todos from project
