@@ -4,6 +4,7 @@ import io.github.saimonovski.smv.wallet.api.Wallet;
 import io.github.saimonovski.smv.wallet.api.guis.CategoryGui;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
 import io.github.saimonovski.smv.wallet.api.object.Config;
+import io.github.saimonovski.smv.wallet.core.utils.SerializeUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.block.data.type.Wall;
 import org.bukkit.entity.LightningStrike;
@@ -20,6 +21,7 @@ public interface Category {
       CategoryGui.Builder builder = CategoryGui.builder()
               .setTitle(title())
               .setConfig(wallet().config())
+              .setMaterial(SerializeUtils.loadFillMaterial(wallet().config().configFile().getSection("categories."+id())))
               .setSize(size());
       products().forEach(builder::addProduct);
 
