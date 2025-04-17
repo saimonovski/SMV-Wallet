@@ -21,6 +21,7 @@ public interface DailyButton extends Button {
     @Override
     default Consumer<InventoryClickEvent> action(){
         return e ->{
+            e.setCancelled(true);
             Player player = (Player) e.getWhoClicked();
             if(!database().checkCooldown(player.getUniqueId())){
                 //todo send a message

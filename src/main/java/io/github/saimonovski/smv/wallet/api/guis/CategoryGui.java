@@ -21,23 +21,30 @@ public class CategoryGui implements InventoryHolder, Gui {
     private final Map<Integer,InventoryButton> buttonMap;
     private final Material material;
     private CategoryGui(int size, Component title, Map<Integer,InventoryButton> map, Material material){
-        this.inventory = Bukkit.createInventory(null,size,title);
+        this.inventory = Bukkit.createInventory(this,size,title);
         this.buttonMap = map;
         this.material = material;
     }
     @Override
     public @NotNull Inventory getInventory() {
+        BackgroundItem.fillBackGround(this.material,inventory, this);
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
-        BackgroundItem.fillBackGround(this.material,inventory);
         return this.inventory;
     }
-   @Override
+
+    @Override
+    public Map<Integer, InventoryButton> getMap() {
+        return this.buttonMap;
+    }
+
+    @Override
     public void handleClick(InventoryClickEvent e){
         int slot = e.getRawSlot();
         InventoryButton button = buttonMap.get(slot);
         if(button == null) return;
         button.action(e);
     }
+    @Override
     public CategoryGui addItem(int slot, InventoryButton button){
         this.buttonMap.put(slot,button);
         return this;

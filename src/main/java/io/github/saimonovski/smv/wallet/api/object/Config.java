@@ -1,7 +1,6 @@
 package io.github.saimonovski.smv.wallet.api.object;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
-import dev.dejvokep.boostedyaml.route.Route;
 import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
@@ -35,7 +34,7 @@ public interface Config {
     }
    @NotNull Material fillMaterial();
     @NotNull String currencySymbol();
-    @NotNull Product getProduct(String productId);
+    @NotNull Product getProduct(String productId, int productSlot);
     @NotNull MainGui mainGui();
     @NotNull List<Category> categories();
 

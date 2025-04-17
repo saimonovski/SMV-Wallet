@@ -20,16 +20,22 @@ public class MainGui implements InventoryHolder, Gui {
     private final Map<Integer,InventoryButton> buttonMap;
     private final Material material;
     private MainGui(int size, Component title, Map<Integer,InventoryButton> map, Material material){
-        this.inventory = Bukkit.createInventory(null,size,title);
+        this.inventory = Bukkit.createInventory(this,size,title);
         this.buttonMap = map;
         this.material = material;
     }
     @Override
     public @NotNull Inventory getInventory() {
+        BackgroundItem.fillBackGround(this.material,this.inventory, this);
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
-        BackgroundItem.fillBackGround(this.material,this.inventory);
         return this.inventory;
     }
+
+    @Override
+    public Map<Integer, InventoryButton> getMap() {
+        return this.buttonMap;
+    }
+
     @Override
     public void handleClick(InventoryClickEvent e){
         int slot = e.getRawSlot();
@@ -37,6 +43,7 @@ public class MainGui implements InventoryHolder, Gui {
         if(button == null) return;
         button.action(e);
     }
+    @Override
     public MainGui addItem(int slot,InventoryButton button){
         this.buttonMap.put(slot,button);
         return this;

@@ -9,7 +9,8 @@ import org.bukkit.inventory.InventoryHolder;
 public class InventoryClickListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void handleClick(InventoryClickEvent event) {
-        InventoryHolder holder = event.getClickedInventory() == null ? null : event.getClickedInventory().getHolder();
+        InventoryHolder holder = event.getClickedInventory() == null ? null :
+                event.getClickedInventory().getHolder(false);
         if(holder == null) return;
         if(!(holder instanceof Gui gui)) return;
         gui.handleClick(event);

@@ -50,13 +50,25 @@ public class ConfirmGui implements InventoryHolder, Gui {
     }
 
     @Override
+    public Gui addItem(int slot, InventoryButton button) {
+        this.buttons.put(slot,button);
+        return this;
+    }
+
+    @Override
+    public Map<Integer, InventoryButton> getMap() {
+        return this.buttons;
+    }
+
+    @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(null,
+        Inventory inventory = Bukkit.createInventory(this,
                 SerializeUtils.loadSize(this.config.configFile().getSection("confirm-gui")),
                 SerializeUtils.loadTitle(this.config.configFile().getSection("confirm-gui")));
-        buttons.forEach((key, value) -> value.decorate(key, inventory));
         BackgroundItem.fillBackGround(SerializeUtils.loadFillMaterial(config.configFile().getSection("confirm-gui")),
-                inventory);
+                inventory, this);
+        buttons.forEach((key, value) -> value.decorate(key, inventory));
+
         return inventory;
     }
     public void openInventory(Player player){

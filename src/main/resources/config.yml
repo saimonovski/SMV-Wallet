@@ -1,7 +1,7 @@
 #Autor pluginu: Saimonovski
 
 
-config-version: 1
+config-version: 2
 
 #dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
 database:
@@ -31,7 +31,7 @@ database:
 currency-symbol: "vPLN"
 #konfiguracja glownego gui
 main-gui:
-  gui-title: "<bold><white> Sklep </white></bold>"
+  title-gui: "<bold><white> Sklep </white></bold>"
   size: 54
   fill-material: "AIR"
 

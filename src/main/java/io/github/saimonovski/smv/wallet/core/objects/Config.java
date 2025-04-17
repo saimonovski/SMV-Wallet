@@ -16,7 +16,6 @@ import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -91,12 +90,13 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
 
     @NotNull
     @Override
-    public Product getProduct(String productId) {
-        Section productSect = configFile().getSection("items");
+    public Product getProduct(String productId, int productSlot) {
+        Section productSect = configFile().getSection("items."+productId);
         return
         io.github.saimonovski.smv.wallet.core.entity.Product.Builder.builder()
                 .setCommands(productSect.getStringList("commands", new ArrayList<>()))
                 .setItemStack(loadItemStack(productSect))
+                .setSlot(productSlot)
                 .setPrice(productSect.getDouble("price", 0.0))
                 .setProvider(this.wallet.provider())
                 .setId(productId).build();
@@ -133,8 +133,29 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
         int size = loadSize(section);
         List<Product> products = new ArrayList<>();
         ItemStack itemStack = loadItemStack(section);
-        List<String> itemIds = section.getStringList("contains-items", new ArrayList<>());
-        itemIds.forEach(str -> products.add(getProduct(str)));
+
+
+        Section itemsSection = section.getSection("contains-items");
+
+        if (itemsSection != null && !itemsSection.getKeys().isEmpty()) {
+            itemsSection.getKeys().forEach(productIdObject -> {
+                if (productIdObject instanceof String productId) {
+                    int productSlot = itemsSection.getInt(productId, -1);
+
+                    if (productSlot >= 0) {
+                        try {
+                            Product product = getProduct(productId, productSlot);
+                            products.add(product);
+                        } catch (Exception e) {
+                            System.err.println("Error loading product '" + productId + "' for category '" + categoryId + "': " + e.getMessage());
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.err.println("Warning: Invalid slot '" + itemsSection.get(productId) + "' defined for product '" + productId + "' in category '" + categoryId + "'");
+                    }
+                }
+            });
+        }
 
         return io.github.saimonovski.smv.wallet.core.entity.Category.Builder
                 .builder()

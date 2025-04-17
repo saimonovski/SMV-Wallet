@@ -24,6 +24,10 @@ dependencies {
     implementation "dev.dejvokep:boosted-yaml:1.3.6"
     implementation 'dev.dejvokep:boosted-yaml-spigot:1.5'
     implementation 'org.incendo:cloud-paper:2.0.0-beta.10'
+    implementation 'org.incendo:cloud-core:2.0.0'
+    implementation 'org.incendo:cloud-annotations:2.0.0'
+    implementation 'org.incendo:cloud-minecraft-extras:2.0.0-beta.10'
+
 }
 
 tasks {
@@ -63,4 +67,5 @@ processResources {
 }
 shadowJar{
     relocate("dev.dejvokep.boosted-yaml", "io.github.saimonovski.libs")
+    relocate("org.incento.cloud", "io.github.saimonovski.libs")
 }
