@@ -75,14 +75,16 @@ public class CategoryGui implements InventoryHolder, Gui {
             this.config = config;
             return this;
         }
-        public Builder addProduct(Product product){
-            return
-            addButton(product.slot(),InventoryButton.of(
-               event -> {
-                   ConfirmGui gui = new ConfirmGui(product,this.config);
-                   gui.openInventory((Player) event.getWhoClicked());
-                   // TODO: 09.04.2025 send  a message
-               }, product.itemStack()));
+        public void addProduct(Product product){
+            addButton(product.slot(), InventoryButton.of(
+                    event -> {
+                        if (!product.checkEnoughMoney(event.getWhoClicked().getUniqueId())) {
+                            config.getMessage("not-enough-money").send((Player) event.getWhoClicked());
+                            return;
+                        }
+                        ConfirmGui gui = new ConfirmGui(product, this.config);
+                        gui.openInventory((Player) event.getWhoClicked());
+                    }, product.itemStack()));
         }
         public Builder setMaterial(Material material){
             this.material = material;

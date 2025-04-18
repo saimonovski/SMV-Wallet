@@ -15,6 +15,8 @@ import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
+import io.github.saimonovski.smv.wallet.messages.Message;
+import io.github.saimonovski.smv.wallet.messages.MessageType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -22,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static io.github.saimonovski.smv.wallet.core.utils.SerializeUtils.*;
+import static io.github.saimonovski.smv.wallet.messages.ChatUtil.fix;
 
 import java.io.File;
 import java.io.IOException;
@@ -310,5 +313,13 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
 
             }
         };
+    }
+
+    @Override
+    public Message getMessage(String path){
+        Section sec = configFile().getSection("messages");
+        Component message = fix(sec.getString(path+".message", ""));
+        MessageType type = sec.getEnum(path+".type", MessageType.class, MessageType.DISABLED);
+        return new Message(message,type);
     }
 }

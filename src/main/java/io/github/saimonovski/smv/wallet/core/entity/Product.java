@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Product implements io.github.saimonovski.smv.wallet.api.entity.Product {
     private final int slot;
@@ -22,6 +23,13 @@ public class Product implements io.github.saimonovski.smv.wallet.api.entity.Prod
         this.commands = commands;
         this.provider = provider;
         this.itemStack = itemStack;
+    }
+
+    @Override
+    public boolean checkEnoughMoney(UUID uniqueId) {
+        double amount = this.provider.getBalance(uniqueId);
+
+        return amount >= price;
     }
 
     @Override

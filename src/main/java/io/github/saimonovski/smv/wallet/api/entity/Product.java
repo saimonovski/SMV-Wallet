@@ -2,6 +2,7 @@ package io.github.saimonovski.smv.wallet.api.entity;
 
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -16,13 +17,16 @@ public interface Product {
     int slot();
    @NotNull List<String> commands();
   @NotNull EconomyProvider getProvider();
-    default void executeCommands(Player player){
+    default void executeCommands(OfflinePlayer player){
         commands().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command.replace("%player%",
-                player.getName())));
+                player.getName() == null ? "nieznany" : player.getName())));
     }
     default boolean buy(UUID id){
         if(getProvider().getBalance(id) < price()) return false;
         getProvider().removeBalance(id,price());
+        executeCommands(Bukkit.getOfflinePlayer(id));
         return true;
     }
+
+    boolean checkEnoughMoney(UUID uniqueId);
 }

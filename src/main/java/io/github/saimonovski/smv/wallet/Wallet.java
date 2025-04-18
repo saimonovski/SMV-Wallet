@@ -5,6 +5,8 @@ import io.github.saimonovski.smv.wallet.api.object.Config;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import io.github.saimonovski.smv.wallet.cloud.CMDManager;
 import io.github.saimonovski.smv.wallet.core.listeners.InventoryClickListener;
+import io.github.saimonovski.smv.wallet.placeholderapi.PlayerBalance;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,12 +17,6 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
   private io.github.saimonovski.smv.wallet.core.objects.EconomyProvider provider;
   private Database database;
   /*
-  todo
-  komendy
-wiadomosci
-
-make todos from project
-
 make test
    */
 
@@ -43,9 +39,16 @@ make test
 
     this.database.connect();
         getLogger().info("Ladowanie Economy Provider...");
-        this.provider = new io.github.saimonovski.smv.wallet.core.objects.EconomyProvider(database());
+        this.provider = new io.github.saimonovski.smv.wallet.core.objects.EconomyProvider(database(), config);
         getLogger().info("Ladowanie komend...");
         new CMDManager(this);
+        getLogger().info("Ladowanie Placeholderow...");
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new PlayerBalance(this).register();
+        }else{
+            getLogger().warning("Nie znaleziono pluginu placeholder API placeholdery nie beda uzywane");
+        }
+        getLogger().info("Plugin Wlaczony, milej zabawy, w razie pytan odwiedz https://saimverse.pl/");
     }
 
     @Override
@@ -53,6 +56,8 @@ make test
         getLogger().info("Wylaczanie pluginu");
         getLogger().info("Rozlaczanie z baza danych...");
         this.database.disconnect();
+        getLogger().info("Plugin wylaczony :(");
+
     }
 
     @Override

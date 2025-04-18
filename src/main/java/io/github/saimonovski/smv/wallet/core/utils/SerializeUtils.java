@@ -2,6 +2,7 @@ package io.github.saimonovski.smv.wallet.core.utils;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
+import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -111,8 +111,9 @@ items:
     model-data: -1 #custom model data przedmiotu. Daj na -1 aby wylaczyc
     #Lista komend do wykonania przez konsole
     # %player% - nazwa gracza
+
     commands:
-      - "say %player% Zakupil range"
+      - "say %player% Zakupil range Hej"
 
 daily-reward:
   display-name: "<gold><bold>DZienna nagroda</gold></bold>"
@@ -127,12 +128,27 @@ daily-reward:
 
 messages:
   daily-reward-message: #wysylane podczas odbierania dziennej nagrody
-    type: ACTIONBAR #typ wiadomosci dostepne: TITLE, SUBTITLE, BOSSBAR, CHAT, ACTIONBAR, DISABLED
+    type: ACTIONBAR #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
     message: "<blue> Wylosowales %amount% pieniedzy"
 
-  balance-updated: #wysylane podczas dostania pieniedzy za pomoca komendy
-    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, BOSSBAR, CHAT, ACTIONBAR, DISABLED
-    message: "<blue> Twoje konto zostalo doladowane kwota %amount%"
+  money-give: #wysylane podczas dostania pieniedzy za pomoca komendy
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<blue> Twoje konto zostalo doladowane kwota %amount% </blue>"
+
+  money-remove:
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<green> Zaplacono  %amount% </green>"
+
+  product-buy:
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<green> Zakupiles %item-name% </green>"
+
+  not-enough-money:
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<red> Nie masz wystarczajaco pieniedzy. </red>"
+  cooldown-message:
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<red> Odebrales juz dzisiaj nagrode </red>"
 
 
 

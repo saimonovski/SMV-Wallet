@@ -5,6 +5,7 @@ import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
+import io.github.saimonovski.smv.wallet.messages.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -53,4 +54,6 @@ public interface Config {
 
 
     boolean useMysql();
+
+    Message getMessage(String path);
 }
