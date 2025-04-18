@@ -208,6 +208,11 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             }
 
             @Override
+            public io.github.saimonovski.smv.wallet.api.object.Config config() {
+                return wallet.config();
+            }
+
+            @Override
             public void setProduct(Product product) {
                 this.product = product;
             }
@@ -267,6 +272,11 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
     @Override
     public DailyButton dailyButton() {
         return new DailyButton() {
+            @Override
+            public io.github.saimonovski.smv.wallet.api.Wallet wallet() {
+                return wallet;
+            }
+
             @Override
             public Database database() {
                 return wallet.database();
