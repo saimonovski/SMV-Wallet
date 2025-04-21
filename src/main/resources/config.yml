@@ -1,7 +1,7 @@
 #Autor pluginu: Saimonovski
 
 
-config-version: 2
+config-version: 3
 
 #dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
 database:
@@ -24,7 +24,6 @@ database:
 
 #Permisje:
 # svm.portfel.admin - dostep do komend administratora
-# smv.portfel.gracz - dostep do komend gracza (odrazu nadawana graczowi)
 
  #material do wypelnienia na tlo
 
@@ -32,8 +31,8 @@ currency-symbol: "vPLN"
 #konfiguracja glownego gui
 main-gui:
   title-gui: "<bold><white> Sklep </white></bold>"
-  size: 54
-  fill-material: "AIR"
+  size: 9
+  fill-material: "YELLOW_STAINED_GLASS_PANE"
 
 #konfiguracja przedmiotu do zamykania menu. Widoczny w glownym menu
 exit-button:
@@ -45,7 +44,7 @@ exit-button:
 
   #konfiguracja przedmiotu do powrotu do glownego menu. Widoczny w menu kategorii
 return-button:
-  slot: 0
+  slot: 3
   display-name: "<red><bold>Powrot</bold></red>"
   lore:
     - "<white>Kliknij aby powrocic do glownego menu</white>"
@@ -57,15 +56,15 @@ categories:
     material: "DIAMOND"
     lore:
       - "<white> Kliknij aby zobaczyc produkty </white>"
-    slot: 34 #slot w ktorym bedzie widoczna kategoria
+    slot: 6 #slot w ktorym bedzie widoczna kategoria
     enchant-glow: true #czy powinien byc glow taki jak maja enchantowane itemki
     model-data: -1 #custom model data przedmiotu. Daj na -1 aby wylaczyc
-    fill-material: "AIR" #material jakim powinno zostac wypelnione gui po otwarciu kategori
-    size: 27 #rozmiar gui, musi byc wielokrotnoscia 9 !
+    fill-material: "BLACK_STAINED_GLASS_PANE" #material jakim powinno zostac wypelnione gui po otwarciu kategori
+    size: 9 #rozmiar gui, musi byc wielokrotnoscia 9 !
     #Lista przedmiotow znajdujacych sie w kategorii (do zakupu, konfiguracja przedmiotow ponizej)
     #Jesli lista jest pusta lub zakomentowana nie otworzy sie zadn gui z przedmiotami
     contains-items:
-      item_id: 1 #klucz czyli item_id to jest id przedmiotu a liczba to slot w ktorym ma sie pojawic
+      item_id: 4 #klucz czyli item_id to jest id przedmiotu a liczba to slot w ktorym ma sie pojawic
 
   information:
     title-gui: ""
@@ -74,7 +73,7 @@ categories:
     lore:
       - "<white> Witaj %player% </white>"
       - "<white> Twoj stan konta wynosi: %portfel_balance% </white>"
-    slot: 35
+    slot: 8
     enchant-glow: true
     model-data: -1
     fill-material: "AIR"
@@ -149,6 +148,9 @@ messages:
   cooldown-message:
     type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
     message: "<red> Odebrales juz dzisiaj nagrode </red>"
+  cancelled-message:
+    type: CHAT #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
+    message: "<red>Anulowano </red>"
 
 
 

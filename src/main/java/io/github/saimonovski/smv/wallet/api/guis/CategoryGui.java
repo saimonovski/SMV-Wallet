@@ -80,6 +80,8 @@ public class CategoryGui implements InventoryHolder, Gui {
                     event -> {
                         if (!product.checkEnoughMoney(event.getWhoClicked().getUniqueId())) {
                             config.getMessage("not-enough-money").send((Player) event.getWhoClicked());
+                            event.setCancelled(true);
+                            event.getWhoClicked().closeInventory();
                             return;
                         }
                         ConfirmGui gui = new ConfirmGui(product, this.config);

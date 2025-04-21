@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 public class InventoryButton  {
     private final Consumer<InventoryClickEvent> consumer;
-    private final ItemStack itemStack;
+    private  ItemStack itemStack;
 
     private InventoryButton(Consumer<InventoryClickEvent> consumer, ItemStack itemStack) {
         this.consumer = consumer;
@@ -29,6 +29,11 @@ public class InventoryButton  {
     public void decorate(int slot, Inventory inventory){
         inventory.setItem(slot,this.itemStack);
     }
+    public InventoryButton setItemStack(ItemStack newItemStack){
+        this.itemStack = newItemStack;
+        return this;
+    }
+
 
 
 }

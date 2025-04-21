@@ -256,6 +256,11 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
     public CancelButton cancelButton() {
         return new CancelButton() {
             @Override
+            public io.github.saimonovski.smv.wallet.api.object.Config config() {
+                return wallet.config();
+            }
+
+            @Override
             public ItemStack itemStack() {
                 return loadItemStack(configFile().getSection("confirm-gui.cancel-button"));
             }

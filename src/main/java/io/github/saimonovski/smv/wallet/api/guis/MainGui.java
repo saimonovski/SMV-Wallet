@@ -3,6 +3,9 @@ package io.github.saimonovski.smv.wallet.api.guis;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
 import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
+import io.github.saimonovski.smv.wallet.core.utils.SerializeUtils;
+import io.github.saimonovski.smv.wallet.messages.replacers.Replacer;
+import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,10 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MainGui implements InventoryHolder, Gui {
     private final Inventory inventory;
@@ -48,8 +51,24 @@ public class MainGui implements InventoryHolder, Gui {
         this.buttonMap.put(slot,button);
         return this;
     }
+
     public void openInventory(Player player){
-        player.openInventory(this.getInventory());
+        Inventory inv = this.getInventory();
+
+        for(int x =0; x<inv.getSize(); x++){
+            ItemStack itemStack = inv.getItem(x);
+            if(itemStack == null) continue;
+            itemStack.editMeta(meta -> {
+                if(!meta.hasDisplayName()) return;
+                meta.displayName(Objects.requireNonNull(meta.displayName()).replaceText(Replacer.replacePlayer(player)));
+                if(!meta.hasLore()) return;
+                List<Component> lore = meta.lore();
+                assert lore != null;
+                lore.replaceAll(component -> component.replaceText(Replacer.replacePlayer(player)));
+            });
+        }
+
+        player.openInventory(inv);
     }
 
     public static Builder builder(){

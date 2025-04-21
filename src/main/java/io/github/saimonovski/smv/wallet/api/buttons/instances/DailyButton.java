@@ -30,7 +30,7 @@ public interface DailyButton extends Button {
         return e ->{
             e.setCancelled(true);
             Player player = (Player) e.getWhoClicked();
-            if(!database().checkCooldown(player.getUniqueId())){
+            if(database().checkCooldown(player.getUniqueId())){
                wallet().config().getMessage("cooldown-message")
                        .send(player);
             return;
