@@ -29,8 +29,6 @@ public class MainGui implements InventoryHolder, Gui {
     }
     @Override
     public @NotNull Inventory getInventory() {
-        BackgroundItem.fillBackGround(this.material,this.inventory, this);
-        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
         return this.inventory;
     }
 
@@ -53,22 +51,10 @@ public class MainGui implements InventoryHolder, Gui {
     }
 
     public void openInventory(Player player){
-        Inventory inv = this.getInventory();
+        BackgroundItem.fillBackGround(this.material,this.inventory, this);
+        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory, player));
 
-        for(int x =0; x<inv.getSize(); x++){
-            ItemStack itemStack = inv.getItem(x);
-            if(itemStack == null) continue;
-            itemStack.editMeta(meta -> {
-                if(!meta.hasDisplayName()) return;
-                meta.displayName(Objects.requireNonNull(meta.displayName()).replaceText(Replacer.replacePlayer(player)));
-                if(!meta.hasLore()) return;
-                List<Component> lore = meta.lore();
-                assert lore != null;
-                lore.replaceAll(component -> component.replaceText(Replacer.replacePlayer(player)));
-            });
-        }
-
-        player.openInventory(inv);
+        player.openInventory(getInventory());
     }
 
     public static Builder builder(){

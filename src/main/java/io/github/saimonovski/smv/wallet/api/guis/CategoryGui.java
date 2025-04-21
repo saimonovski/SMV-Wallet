@@ -27,8 +27,6 @@ public class CategoryGui implements InventoryHolder, Gui {
     }
     @Override
     public @NotNull Inventory getInventory() {
-        BackgroundItem.fillBackGround(this.material,inventory, this);
-        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory));
         return this.inventory;
     }
 
@@ -50,6 +48,8 @@ public class CategoryGui implements InventoryHolder, Gui {
         return this;
     }
     public void openInventory(Player player){
+        BackgroundItem.fillBackGround(this.material,inventory, this);
+        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory, player));
         player.openInventory(this.getInventory());
     }
 

@@ -36,6 +36,11 @@ public class PlayerBalance extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
            return wallet.provider().getBalance(player.getUniqueId())+"";
     }

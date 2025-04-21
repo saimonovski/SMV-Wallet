@@ -7,25 +7,21 @@ import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
 import io.github.saimonovski.smv.wallet.api.object.Config;
 import io.github.saimonovski.smv.wallet.core.utils.SerializeUtils;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class ConfirmGui implements InventoryHolder, Gui {
 
     private final Config config;
     Map<Integer,InventoryButton> buttons = new HashMap<>();
+    private Inventory inventory = Bukkit.createInventory(this,54);
 
 
     public ConfirmGui(Product productToBuy, Config config) {
@@ -62,16 +58,15 @@ public class ConfirmGui implements InventoryHolder, Gui {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this,
+        return this.inventory;
+    }
+    public void openInventory(Player player){
+        this.inventory = Bukkit.createInventory(this,
                 SerializeUtils.loadSize(this.config.configFile().getSection("confirm-gui")),
                 SerializeUtils.loadTitle(this.config.configFile().getSection("confirm-gui")));
         BackgroundItem.fillBackGround(SerializeUtils.loadFillMaterial(config.configFile().getSection("confirm-gui")),
-                inventory, this);
-        buttons.forEach((key, value) -> value.decorate(key, inventory));
-
-        return inventory;
-    }
-    public void openInventory(Player player){
+                this.inventory, this);
+        buttons.forEach((key, value) -> value.decorate(key, this.inventory, player));
         player.openInventory(this.getInventory());
     }
 }

@@ -17,4 +17,8 @@ public class WalletCMD {
     public void run(final @NotNull Player player){
         config.mainGui().openInventory(player);
     }
+    @Command("portfel")
+    public void walletCMD(final @NotNull Player player){
+        config.mainGui().openInventory(player);
+    }
 }

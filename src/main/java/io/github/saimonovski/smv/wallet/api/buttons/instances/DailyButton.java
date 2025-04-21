@@ -36,7 +36,8 @@ public interface DailyButton extends Button {
             return;
             }
             database().setOnCooldown(player.getUniqueId());
-            double amount =new Random().nextDouble(minAmount(),maxAmount());
+            double aDouble = new Random().nextDouble(minAmount(),maxAmount());
+            double amount = Math.round(aDouble * 100.0) / 100.0;
             provider().addBalance(player.getUniqueId(),amount);
             wallet().config().getMessage("daily-reward-message").send(player, Replacer.replaceAmount(amount));
         };

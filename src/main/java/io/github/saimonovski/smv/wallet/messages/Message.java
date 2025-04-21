@@ -12,6 +12,7 @@ public class Message {
     public Message(Component component, MessageType type) {
         this.component = component;
         this.type = type;
+
     }
     public void send(Player player){
         type.send(player,this.component);

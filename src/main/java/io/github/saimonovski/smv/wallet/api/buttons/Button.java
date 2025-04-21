@@ -16,7 +16,5 @@ public interface Button {
    default InventoryButton build(){
       return InventoryButton.of(action(),itemStack());
    }
-   default void decorate(Inventory inventory){
-      build().decorate(slot(),inventory);
-   }
+
 }

@@ -43,11 +43,12 @@ make test
         getLogger().info("Ladowanie komend...");
         new CMDManager(this);
         getLogger().info("Ladowanie Placeholderow...");
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            new PlayerBalance(this).register();
+       /* if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+
         }else{
             getLogger().warning("Nie znaleziono pluginu placeholder API placeholdery nie beda uzywane");
-        }
+        }*/
+        new PlayerBalance(this).register();
         getLogger().info("Plugin Wlaczony, milej zabawy, w razie pytan odwiedz https://saimverse.pl/");
     }
 
