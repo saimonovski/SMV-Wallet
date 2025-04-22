@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
+
 public class PlayerBalance extends PlaceholderExpansion {
     private final Wallet wallet;
 
@@ -42,11 +44,15 @@ public class PlayerBalance extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-           return wallet.provider().getBalance(player.getUniqueId())+"";
+        double balance = wallet.provider().getBalance(player.getUniqueId());
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(balance);
     }
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        return wallet.provider().getBalance(player.getUniqueId())+"";
+        double balance = wallet.provider().getBalance(player.getUniqueId());
+        DecimalFormat df = new DecimalFormat("#.##");
+           return df.format(balance);
     }
 }

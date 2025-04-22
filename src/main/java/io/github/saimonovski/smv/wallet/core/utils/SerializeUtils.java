@@ -5,6 +5,8 @@ import dev.dejvokep.boostedyaml.block.implementation.Section;
 import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +20,7 @@ public class SerializeUtils {
         String name = itemStackSection.getString("display-name","");
         List<String> lore = itemStackSection.getStringList("lore", new ArrayList<>());
         int customModelData = itemStackSection.getInt("model-data", -1);
-        boolean shouldGlow = itemStackSection.getBoolean("should-glow", false);
+        boolean shouldGlow = itemStackSection.getBoolean("enchant-glow", false);
         Material material = itemStackSection.getEnum( "material", Material.class, Material.BARRIER);
         int amount = itemStackSection.getInt("itemAmount", 1);
         ItemStack stack = ItemStack.of(material,amount);
@@ -26,7 +28,11 @@ public class SerializeUtils {
             meta.displayName(ChatUtil.fix(name));
             meta.lore(ChatUtil.fix(lore));
             if(customModelData != -1) meta.setCustomModelData(customModelData);
-            if(shouldGlow) meta.setEnchantmentGlintOverride(true);
+            if(shouldGlow){
+                meta.setEnchantmentGlintOverride(true);
+            }
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS,ItemFlag.HIDE_DESTROYS,ItemFlag.HIDE_ATTRIBUTES,
+                    ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_ARMOR_TRIM);
         });
         return stack;
     }
