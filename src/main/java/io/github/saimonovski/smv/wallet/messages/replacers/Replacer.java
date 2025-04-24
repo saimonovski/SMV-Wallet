@@ -11,6 +11,12 @@ public class Replacer {
                 .replacement(player.getName())
                 .build();
     }
+    public static TextReplacementConfig replacePlayer(String player){
+        return TextReplacementConfig.builder()
+                .match("%player%")
+                .replacement(player)
+                .build();
+    }
     public static TextReplacementConfig replaceAmount(double amount){
         return TextReplacementConfig.builder()
                 .match("%amount%")

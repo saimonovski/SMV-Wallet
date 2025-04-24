@@ -5,8 +5,10 @@ import io.github.saimonovski.smv.wallet.api.Wallet;
 import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import io.github.saimonovski.smv.wallet.messages.Message;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -114,10 +116,26 @@ public class AWalletCMD {
     }
     @Command("stan <who>")
     public void check(Player player ,@Argument(value = "who", suggestions = "players") Player who){
+
         Message mes =  this.wallet.config().getMessage("admin-balance-check");
         String text = MiniMessage.miniMessage().serialize(mes.getText());
         mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
         mes.send(player,replacePlayer(who));
     }
+//by name
+@Command("stan <who>")
+public void check(Player player ,@Argument(value = "who", suggestions = "players") String name){
+    OfflinePlayer who = Bukkit.getOfflinePlayer(name);
+    Message mes =  this.wallet.config().getMessage("admin-balance-check");
+    String text = MiniMessage.miniMessage().serialize(mes.getText());
+    mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
+    mes.send(player,replacePlayer(who.getName()));
+}
+    @Command("usun <who> <amount>")
+    public void remove(@Argument(value = "who", suggestions = "players") Player who,
+                       @Argument(value = "amount", suggestions = "amount") double amount){
+        ActionType.REMOVE.action(who,this.wallet,amount);
+    }
+
 
 }
