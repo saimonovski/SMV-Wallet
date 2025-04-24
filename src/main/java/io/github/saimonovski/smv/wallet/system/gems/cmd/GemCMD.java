@@ -1,24 +1,23 @@
-package io.github.saimonovski.smv.wallet.cmd;
+package io.github.saimonovski.smv.wallet.system.gems.cmd;
 
 import io.github.saimonovski.smv.wallet.api.object.Config;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Command;
-import org.incendo.cloud.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
-
-public class WalletCMD {
+@SuppressWarnings("unused")
+public class GemCMD {
     private final Config config;
 
-    public WalletCMD(Config config) {
+    public GemCMD(Config config) {
         this.config = config;
     }
 
-    @Command("itemshop")
+    @Command("gemshop")
     public void run(final @NotNull Player player){
         config.mainGui().openInventory(player);
     }
-    @Command("portfel")
-    public void walletCMD(final @NotNull Player player){
+    @Command("gemy")
+    public void gemCMD(final @NotNull Player player){
         config.mainGui().openInventory(player);
     }
 }

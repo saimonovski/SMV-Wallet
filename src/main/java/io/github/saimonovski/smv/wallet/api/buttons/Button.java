@@ -2,7 +2,6 @@ package io.github.saimonovski.smv.wallet.api.buttons;
 
 import io.github.saimonovski.smv.wallet.api.guis.InventoryButton;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

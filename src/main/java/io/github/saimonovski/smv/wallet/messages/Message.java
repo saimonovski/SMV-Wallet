@@ -5,7 +5,7 @@ import net.kyori.adventure.text.TextReplacementConfig;
 import org.bukkit.entity.Player;
 
 public class Message {
-    private final Component component;
+    private  Component component;
     private final MessageType type;
 
 
@@ -25,5 +25,12 @@ public class Message {
         for (TextReplacementConfig replacement : replacements) {
              comp = comp.replaceText(replacement);
         }
+        this.type.send(player,comp);
+    }
+    public Component getText(){
+        return component;
+    }
+    public void setText(Component component){
+        this.component = component;
     }
 }

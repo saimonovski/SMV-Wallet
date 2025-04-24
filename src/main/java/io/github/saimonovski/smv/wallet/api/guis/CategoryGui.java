@@ -1,9 +1,9 @@
 package io.github.saimonovski.smv.wallet.api.guis;
 
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
-import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
 import io.github.saimonovski.smv.wallet.api.object.Config;
+import io.github.saimonovski.smv.wallet.api.entity.Product;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

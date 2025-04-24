@@ -1,11 +1,10 @@
-package io.github.saimonovski.smv.wallet.core.utils;
+package io.github.saimonovski.smv.wallet.system.gems.core.utils;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
 import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

@@ -3,7 +3,6 @@ package io.github.saimonovski.smv.wallet.api.buttons.instances;
 import io.github.saimonovski.smv.wallet.api.Database;
 import io.github.saimonovski.smv.wallet.api.Wallet;
 import io.github.saimonovski.smv.wallet.api.buttons.Button;
-import io.github.saimonovski.smv.wallet.api.object.Config;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import io.github.saimonovski.smv.wallet.messages.replacers.Replacer;
 import org.bukkit.entity.Player;
@@ -40,6 +39,7 @@ public interface DailyButton extends Button {
             double amount = Math.round(aDouble * 100.0) / 100.0;
             provider().addBalance(player.getUniqueId(),amount);
             wallet().config().getMessage("daily-reward-message").send(player, Replacer.replaceAmount(amount));
+            e.getWhoClicked().closeInventory();
         };
     }
 

@@ -1,12 +1,12 @@
 package io.github.saimonovski.smv.wallet.api.guis;
 
-import io.github.saimonovski.smv.wallet.api.buttons.instances.CancelButton;
 import io.github.saimonovski.smv.wallet.api.buttons.instances.ConfirmButton;
+import io.github.saimonovski.smv.wallet.api.object.Config;
+import io.github.saimonovski.smv.wallet.api.buttons.instances.CancelButton;
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.util.BackgroundItem;
-import io.github.saimonovski.smv.wallet.api.object.Config;
-import io.github.saimonovski.smv.wallet.core.utils.SerializeUtils;
+import io.github.saimonovski.smv.wallet.system.wallet.core.utils.SerializeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;

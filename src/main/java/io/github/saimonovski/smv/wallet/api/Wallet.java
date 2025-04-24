@@ -6,7 +6,9 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Wallet {
    @NotNull Database database();
-   @NotNull EconomyProvider provider();
-   @NotNull Config config();
-   
+   @NotNull
+   EconomyProvider provider();
+   @NotNull
+   Config config();
+
 }

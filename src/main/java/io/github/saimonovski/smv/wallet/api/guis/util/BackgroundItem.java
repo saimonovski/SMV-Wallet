@@ -5,11 +5,6 @@ import io.github.saimonovski.smv.wallet.api.guis.InventoryButton;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.w3c.dom.css.CSSRule;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class BackgroundItem {
     public static void fillBackGround(Material materialToFill, Inventory inventory, Gui gui){

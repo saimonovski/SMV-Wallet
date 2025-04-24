@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.core.objects;
+package io.github.saimonovski.smv.wallet.system.wallet.core.objects;
 
 import io.github.saimonovski.smv.wallet.Wallet;
 import io.github.saimonovski.smv.wallet.api.object.Config;

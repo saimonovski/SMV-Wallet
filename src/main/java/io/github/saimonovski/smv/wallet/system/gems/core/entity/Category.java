@@ -1,9 +1,8 @@
-package io.github.saimonovski.smv.wallet.core.entity;
+package io.github.saimonovski.smv.wallet.system.gems.core.entity;
 
 import io.github.saimonovski.smv.wallet.api.Wallet;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import net.kyori.adventure.text.Component;
-import org.bukkit.block.data.type.Wall;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

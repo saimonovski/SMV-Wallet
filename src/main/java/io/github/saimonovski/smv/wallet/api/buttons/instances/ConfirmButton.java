@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
 import java.util.function.Consumer;
 import static io.github.saimonovski.smv.wallet.messages.replacers.Replacer.*;
 

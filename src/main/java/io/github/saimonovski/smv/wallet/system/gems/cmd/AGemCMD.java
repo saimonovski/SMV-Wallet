@@ -1,35 +1,38 @@
-package io.github.saimonovski.smv.wallet.cmd;
+package io.github.saimonovski.smv.wallet.system.gems.cmd;
 
-import io.github.saimonovski.smv.wallet.api.Wallet;
 
+import io.github.saimonovski.smv.wallet.api.object.GemWallet;
+import static io.github.saimonovski.smv.wallet.messages.replacers.Replacer.replacePlayer;
+
+import io.github.saimonovski.smv.wallet.messages.ChatUtil;
+import io.github.saimonovski.smv.wallet.messages.Message;
+
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
 import org.incendo.cloud.annotations.Permission;
-
 import org.incendo.cloud.annotations.suggestion.Suggestions;
 import org.incendo.cloud.context.CommandContext;
 
-
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Command("aportfel")
+@Command("agemy")
 @Permission(value = {"svm.portfel.admin"})
-public class AWalletCMD {
-    private final Wallet wallet;
+@SuppressWarnings("unused")
+public class AGemCMD {
+    private final GemWallet wallet;
     private final List<String> amountList = new ArrayList<>();
 
-    public AWalletCMD(Wallet wallet) {
+    public AGemCMD(GemWallet wallet) {
         this.wallet = wallet;
         for(double x = 0.0; x < 100; x = x+1){
             amountList.add(String.valueOf(x));
@@ -38,32 +41,35 @@ public class AWalletCMD {
 @SuppressWarnings("unused")
     public enum ActionType{
         ADD(
-                player -> wallet -> num -> wallet.provider().addBalance(player.getUniqueId(),num)
+                player -> wallet -> num -> wallet.getGemProvider().addBalance(player.getUniqueId(),num)
         ),
     SET(
-                player -> wallet -> num -> wallet.provider().setBalance(player.getUniqueId(),num)
+                player -> wallet -> num -> wallet.getGemProvider().setBalance(player.getUniqueId(),num)
         ),
     REMOVE(
-                player -> wallet -> num -> wallet.provider().removeBalance(player.getUniqueId(),num)
+                player -> wallet -> num -> wallet.getGemProvider().removeBalance(player.getUniqueId(),num)
         ),
         RELOAD(
                 player -> wallet -> num ->  {
                     try {
-                        wallet.config().configFile().reload();
+                        wallet.getGemConfig().configFile().reload();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
         );
-        private final Function<Player,Function<Wallet, Consumer<Double>>> fun;
-        ActionType(Function<Player,Function<Wallet, Consumer<Double>>>fun) {
+        private final Function<Player,Function<GemWallet, Consumer<Double>>> fun;
+        ActionType(Function<Player,Function<GemWallet, Consumer<Double>>>fun) {
             this.fun = fun;
         }
-        public void action(Player player, Wallet wallet,double num){
+        public void action(Player player, GemWallet wallet,double num){
             this.fun.apply(player).apply(wallet).accept(num);
         }
     }
     @SuppressWarnings("unused")
+
+    //commands
+
 
     @Command("dodaj <who> <amount>")
     public void add( @Argument(value = "who", suggestions = "players") Player who,
@@ -95,6 +101,15 @@ public class AWalletCMD {
         ActionType.RELOAD.action(null,this.wallet,0.0);
     }
 
+    @Command("stan <who>")
+    public void check(Player player ,@Argument(value = "who", suggestions = "players") Player who){
+      Message mes =  this.wallet.getGemConfig().getMessage("admin-balance-check");
+      String text = MiniMessage.miniMessage().serialize(mes.getText());
+      mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
+      mes.send(player,replacePlayer(who));
+    }
+
+    //suggestions
     @Suggestions("players") @SuppressWarnings("unused")
     public List<String> suggestPlayers(CommandContext<CommandSender> context, String input) {
         return Bukkit.getOnlinePlayers().stream()
@@ -106,6 +121,7 @@ public class AWalletCMD {
     public List<String> suggestAmount(CommandContext<CommandSender> context, String input){
       return  amountList.stream().filter(str -> str.startsWith(input)).collect(Collectors.toList());
     }
+
 
 
 }

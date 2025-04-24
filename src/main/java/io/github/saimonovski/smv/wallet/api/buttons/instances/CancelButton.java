@@ -1,8 +1,8 @@
 package io.github.saimonovski.smv.wallet.api.buttons.instances;
 
 import io.github.saimonovski.smv.wallet.api.buttons.Button;
-
 import io.github.saimonovski.smv.wallet.api.object.Config;
+
 import io.github.saimonovski.smv.wallet.messages.replacers.Replacer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;

@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.core.listeners;
+package io.github.saimonovski.smv.wallet.system.wallet.core.listeners;
 
 import io.github.saimonovski.smv.wallet.api.entity.Gui;
 import org.bukkit.event.EventHandler;

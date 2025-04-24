@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.core.entity;
+package io.github.saimonovski.smv.wallet.system.gems.core.entity;
 
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import org.bukkit.inventory.ItemStack;
@@ -65,6 +65,7 @@ public class Product implements io.github.saimonovski.smv.wallet.api.entity.Prod
     public EconomyProvider getProvider() {
         return this.provider;
     }
+
 
     public static class Builder{
         private  int  slot;

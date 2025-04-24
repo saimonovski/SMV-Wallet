@@ -2,6 +2,7 @@ package io.github.saimonovski.smv.wallet.api.object;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
+
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;
 import io.github.saimonovski.smv.wallet.api.guis.MainGui;
@@ -28,7 +29,7 @@ public interface Config {
    @NotNull
    DailyButton dailyButton();
    @NotNull
-    ExitButton exitButton();
+   ExitButton exitButton();
     int databasePort();
     default String databaseTablePrefix(){
         return "portfel_";

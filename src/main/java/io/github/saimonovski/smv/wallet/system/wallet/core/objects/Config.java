@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.core.objects;
+package io.github.saimonovski.smv.wallet.system.wallet.core.objects;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.block.implementation.Section;
@@ -23,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static io.github.saimonovski.smv.wallet.core.utils.SerializeUtils.*;
+import static io.github.saimonovski.smv.wallet.system.wallet.core.utils.SerializeUtils.*;
 import static io.github.saimonovski.smv.wallet.messages.ChatUtil.fix;
 
 import java.io.File;
@@ -96,7 +96,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
     public Product getProduct(String productId, int productSlot) {
         Section productSect = configFile().getSection("items."+productId);
         return
-        io.github.saimonovski.smv.wallet.core.entity.Product.Builder.builder()
+        io.github.saimonovski.smv.wallet.system.wallet.core.entity.Product.Builder.builder()
                 .setCommands(productSect.getStringList("commands", new ArrayList<>()))
                 .setItemStack(loadItemStack(productSect))
                 .setSlot(productSlot)
@@ -160,7 +160,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             });
         }
 
-        return io.github.saimonovski.smv.wallet.core.entity.Category.Builder
+        return io.github.saimonovski.smv.wallet.system.wallet.core.entity.Category.Builder
                 .builder()
                 .setId(categoryId)
                 .setTitle(loadTitle(section))

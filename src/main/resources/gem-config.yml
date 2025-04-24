@@ -1,7 +1,7 @@
 #Autor pluginu: Saimonovski
-#Config do portfela
+# Config do gemów
 
-config-version: 4
+config-version: 2
 
 #dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
 database:
@@ -14,13 +14,13 @@ database:
 
 #  #komendy
 # dla graczy:
-# /portfel
-# /itemshop
+# /gemy
+# /gemshop
 # dla administracji:
-# /portfel (add/set/remove) (nick/all) (ilosc)
+# /agemy (add/set/remove) (nick/all) (ilosc)
 
 #placeholdery:
-# %portfel_balance% - balans ilosci vpln w portfelu
+# %gem_balance% - balans ilosci vpln w portfelu
 
 #Permisje:
 # svm.portfel.admin - dostep do komend administratora
@@ -153,7 +153,7 @@ messages:
     message: "<red>Anulowano </red>"
   admin-balance-check:
     type: ACTIONBAR #typ wiadomosci dostepne: TITLE, SUBTITLE, , CHAT, ACTIONBAR, DISABLED
-    message: "<blue>Gracz %player% posiada %portfel_balance% vPLN </blue>"
+    message: "<blue>Gracz %player% posiada %gem_balance% gemów </blue>"
 
 
 
