@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Database implements io.github.saimonovski.smv.wallet.api.Database {
+public class Database implements io.github.saimonovski.smv.wallet.api.object.Database {
     private final Config config;
     private final Connection connection;
     private final Wallet plugin;

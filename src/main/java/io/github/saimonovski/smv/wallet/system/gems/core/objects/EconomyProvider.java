@@ -1,6 +1,6 @@
 package io.github.saimonovski.smv.wallet.system.gems.core.objects;
 
-import io.github.saimonovski.smv.wallet.api.Database;
+import io.github.saimonovski.smv.wallet.api.object.Database;
 import io.github.saimonovski.smv.wallet.api.object.Config;
 import io.github.saimonovski.smv.wallet.messages.replacers.Replacer;
 import org.bukkit.Bukkit;

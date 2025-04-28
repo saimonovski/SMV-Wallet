@@ -1,6 +1,6 @@
 package io.github.saimonovski.smv.wallet.api.buttons.instances;
 
-import io.github.saimonovski.smv.wallet.api.Database;
+import io.github.saimonovski.smv.wallet.api.object.Database;
 import io.github.saimonovski.smv.wallet.api.Wallet;
 import io.github.saimonovski.smv.wallet.api.buttons.Button;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;

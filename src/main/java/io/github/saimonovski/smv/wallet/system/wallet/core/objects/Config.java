@@ -9,7 +9,7 @@ import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import dev.dejvokep.boostedyaml.spigot.SpigotSerializer;
 import io.github.saimonovski.smv.wallet.Wallet;
-import io.github.saimonovski.smv.wallet.api.Database;
+import io.github.saimonovski.smv.wallet.api.object.Database;
 import io.github.saimonovski.smv.wallet.api.buttons.instances.*;
 import io.github.saimonovski.smv.wallet.api.entity.Category;
 import io.github.saimonovski.smv.wallet.api.entity.Product;

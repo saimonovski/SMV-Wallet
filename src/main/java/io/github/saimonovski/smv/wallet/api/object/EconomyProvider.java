@@ -1,6 +1,5 @@
 package io.github.saimonovski.smv.wallet.api.object;
 
-import io.github.saimonovski.smv.wallet.api.Database;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;

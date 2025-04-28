@@ -1,4 +1,4 @@
-package io.github.saimonovski.smv.wallet.api;
+package io.github.saimonovski.smv.wallet.api.object;
 
 import java.sql.SQLException;
 import java.util.UUID;

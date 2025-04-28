@@ -7,9 +7,11 @@ import static io.github.saimonovski.smv.wallet.messages.replacers.Replacer.repla
 import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import io.github.saimonovski.smv.wallet.messages.Message;
 
+import io.github.saimonovski.smv.wallet.system.wallet.cmd.AWalletCMD;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
@@ -58,11 +60,11 @@ public class AGemCMD {
                     }
                 }
         );
-        private final Function<Player,Function<GemWallet, Consumer<Double>>> fun;
-        ActionType(Function<Player,Function<GemWallet, Consumer<Double>>>fun) {
+        private final Function<OfflinePlayer,Function<GemWallet, Consumer<Double>>> fun;
+        ActionType(Function<OfflinePlayer,Function<GemWallet, Consumer<Double>>>fun) {
             this.fun = fun;
         }
-        public void action(Player player, GemWallet wallet,double num){
+        public void action(OfflinePlayer player, GemWallet wallet,double num){
             this.fun.apply(player).apply(wallet).accept(num);
         }
     }
@@ -71,43 +73,46 @@ public class AGemCMD {
     //commands
 
 
+
+    //By name*/
+    @Command("stan <who>")
+    public void checkOffline(Player player ,@Argument(value = "who", suggestions = "players") String who){
+        Message mes =  this.wallet.getGemConfig().getMessage("admin-balance-check");
+        String text = MiniMessage.miniMessage().serialize(mes.getText());
+        mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(who),text)));
+        mes.send(player,replacePlayer(who));
+    }
+
     @Command("dodaj <who> <amount>")
-    public void add( @Argument(value = "who", suggestions = "players") Player who,
+    public void addOffline( @Argument(value = "who", suggestions = "players") String who,
                      @Argument(value = "amount", suggestions = "amount")  double amount){
-        ActionType.ADD.action(who,this.wallet,amount);
+        ActionType.ADD.action(Bukkit.getOfflinePlayer(who),this.wallet,amount);
     }
     @SuppressWarnings("unused")
 
     @Command("dodaj all <amount>")
-    public void addAll(
+    public void addAllOffline(
             @Argument(value = "amount", suggestions = "amount")  double amount){
-        Bukkit.getOnlinePlayers().forEach(who -> ActionType.ADD.action(who,this.wallet,amount));
+        for (OfflinePlayer who : Bukkit.getOfflinePlayers()) {
+            ActionType.ADD.action(who,this.wallet,amount);
+        }
     }
     @SuppressWarnings("unused")
 
     @Command("usun <who> <amount>")
-    public void remove(@Argument(value = "who", suggestions = "players") Player who,
+    public void removeOffline(@Argument(value = "who", suggestions = "players") String who,
                        @Argument(value = "amount", suggestions = "amount") double amount){
-        ActionType.REMOVE.action(who,this.wallet,amount);
+        ActionType.REMOVE.action(Bukkit.getOfflinePlayer(who),this.wallet,amount);
     }
     @Command("usun all <amount>")  @SuppressWarnings("unused")
 
-    public void removeAll(
+    public void removeAllOffline(
             @Argument(value = "amount", suggestions = "amount")  double amount){
-        Bukkit.getOnlinePlayers().forEach(who -> ActionType.REMOVE.action(who,this.wallet,amount));
+        for (OfflinePlayer who : Bukkit.getOfflinePlayers()) {
+            ActionType.REMOVE.action(who,this.wallet,amount);
+        }
     }
-    @Command("reload") @SuppressWarnings("unused")
-    public void reload(){
-        ActionType.RELOAD.action(null,this.wallet,0.0);
-    }
-
-    @Command("stan <who>")
-    public void check(Player player ,@Argument(value = "who", suggestions = "players") Player who){
-      Message mes =  this.wallet.getGemConfig().getMessage("admin-balance-check");
-      String text = MiniMessage.miniMessage().serialize(mes.getText());
-      mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
-      mes.send(player,replacePlayer(who));
-    }
+   
 
     //suggestions
     @Suggestions("players") @SuppressWarnings("unused")

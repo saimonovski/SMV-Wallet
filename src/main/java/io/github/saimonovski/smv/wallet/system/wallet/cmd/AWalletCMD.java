@@ -4,6 +4,7 @@ import io.github.saimonovski.smv.wallet.api.Wallet;
 
 import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import io.github.saimonovski.smv.wallet.messages.Message;
+import io.github.saimonovski.smv.wallet.system.gems.cmd.AGemCMD;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -63,45 +64,52 @@ public class AWalletCMD {
                     }
                 }
         );
-        private final Function<Player,Function<Wallet, Consumer<Double>>> fun;
-        ActionType(Function<Player,Function<Wallet, Consumer<Double>>>fun) {
+        private final Function<OfflinePlayer,Function<Wallet, Consumer<Double>>> fun;
+        ActionType(Function<OfflinePlayer,Function<Wallet, Consumer<Double>>>fun) {
             this.fun = fun;
         }
-        public void action(Player player, Wallet wallet,double num){
+        public void action(OfflinePlayer player, Wallet wallet,double num){
             this.fun.apply(player).apply(wallet).accept(num);
         }
     }
     @SuppressWarnings("unused")
 
     @Command("dodaj <who> <amount>")
-    public void add( @Argument(value = "who", suggestions = "players") Player who,
+    public void add( @Argument(value = "who", suggestions = "players") String who,
                      @Argument(value = "amount", suggestions = "amount")  double amount){
-        ActionType.ADD.action(who,this.wallet,amount);
+        ActionType.ADD.action(Bukkit.getOfflinePlayer(who),this.wallet,amount);
     }
     @SuppressWarnings("unused")
 
     @Command("dodaj all <amount>")
     public void addAll(
             @Argument(value = "amount", suggestions = "amount")  double amount){
-        Bukkit.getOnlinePlayers().forEach(who -> ActionType.ADD.action(who,this.wallet,amount));
+        for (OfflinePlayer who : Bukkit.getOfflinePlayers()) {
+             ActionType.ADD.action(who,this.wallet,amount);
+        }
     }
     @SuppressWarnings("unused")
 
     @Command("usun <who> <amount>")
-    public void remove(@Argument(value = "who", suggestions = "players") Player who,
+    public void remove(@Argument(value = "who", suggestions = "players") String who,
                        @Argument(value = "amount", suggestions = "amount") double amount){
-        ActionType.REMOVE.action(who,this.wallet,amount);
+        ActionType.REMOVE.action(Bukkit.getOfflinePlayer(who),this.wallet,amount);
     }
     @Command("usun all <amount>")  @SuppressWarnings("unused")
 
     public void removeAll(
             @Argument(value = "amount", suggestions = "amount")  double amount){
-        Bukkit.getOnlinePlayers().forEach(who -> ActionType.REMOVE.action(who,this.wallet,amount));
+        for (OfflinePlayer who : Bukkit.getOfflinePlayers()) {
+            ActionType.REMOVE.action(who,this.wallet,amount);
+        }
     }
+
     @Command("reload") @SuppressWarnings("unused")
-    public void reload(){
+    public void reload(CommandSender sender){
         ActionType.RELOAD.action(null,this.wallet,0.0);
+        sender.sendMessage(ChatUtil.fix("<green>Przeladowano config</green>"));
     }
+    //suggestions
 
     @Suggestions("players") @SuppressWarnings("unused")
     public List<String> suggestPlayers(CommandContext<CommandSender> context, String input) {
@@ -114,14 +122,7 @@ public class AWalletCMD {
     public List<String> suggestAmount(CommandContext<CommandSender> context, String input){
       return  amountList.stream().filter(str -> str.startsWith(input)).collect(Collectors.toList());
     }
-    @Command("stan <who>")
-    public void check(Player player ,@Argument(value = "who", suggestions = "players") Player who){
 
-        Message mes =  this.wallet.config().getMessage("admin-balance-check");
-        String text = MiniMessage.miniMessage().serialize(mes.getText());
-        mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
-        mes.send(player,replacePlayer(who));
-    }
 //by name
 @Command("stan <who>")
 public void check(Player player ,@Argument(value = "who", suggestions = "players") String name){
@@ -131,11 +132,4 @@ public void check(Player player ,@Argument(value = "who", suggestions = "players
     mes.setText(ChatUtil.fix(PlaceholderAPI.setPlaceholders(who,text)));
     mes.send(player,replacePlayer(who.getName()));
 }
-    @Command("usun <who> <amount>")
-    public void remove(@Argument(value = "who", suggestions = "players") Player who,
-                       @Argument(value = "amount", suggestions = "amount") double amount){
-        ActionType.REMOVE.action(who,this.wallet,amount);
-    }
-
-
 }
