@@ -72,7 +72,7 @@ categories:
     material: "STONE"
     lore:
       - "<white> Witaj %player_name% </white>"
-      - "<white> Twoj stan konta wynosi: %portfel_balance% </white>"
+      - "<white> Twoj stan konta wynosi: %gem_balance% </white>"
     slot: 8
     enchant-glow: true
     model-data: -1
