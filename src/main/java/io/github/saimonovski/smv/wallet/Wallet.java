@@ -20,9 +20,7 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
   private Database gemDatabase;
   private EconomyProvider gemProvider;
   private Config gemConfig;
-  /*
-make test
-   */
+
 
     @Override
     public void onEnable() {

@@ -47,8 +47,8 @@ public class MainGui implements InventoryHolder, Gui {
     }
 
     public void openInventory(Player player){
-        BackgroundItem.fillBackGround(this.material,this.inventory, this);
         this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory, player));
+        BackgroundItem.fillBackGround(this.material,this.inventory, this);
 
         player.openInventory(getInventory());
     }

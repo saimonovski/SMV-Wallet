@@ -104,6 +104,21 @@ public class AWalletCMD {
         }
     }
 
+    @Command("ustaw all <amount>")
+    public void setAll(
+            @Argument(value = "amount", suggestions = "amount")  double amount){
+        for (OfflinePlayer who : Bukkit.getOfflinePlayers()) {
+            ActionType.SET.action(who,this.wallet,amount);
+        }
+    }
+    @SuppressWarnings("unused")
+
+    @Command("ustaw <who> <amount>")
+    public void setOffline(@Argument(value = "who", suggestions = "players") String who,
+                           @Argument(value = "amount", suggestions = "amount") double amount){
+        ActionType.SET.action(Bukkit.getOfflinePlayer(who),this.wallet,amount);
+    }
+
     @Command("reload") @SuppressWarnings("unused")
     public void reload(CommandSender sender){
         ActionType.RELOAD.action(null,this.wallet,0.0);

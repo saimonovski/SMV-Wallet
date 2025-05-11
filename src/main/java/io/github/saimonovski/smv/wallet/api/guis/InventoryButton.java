@@ -4,6 +4,7 @@ import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -31,14 +32,19 @@ public class InventoryButton  {
     public void action(InventoryClickEvent e) {
         this.consumer.accept(e);
     }
+    @SuppressWarnings("all")
     public void decorate(int slot, Inventory inventory, Player player){
         ItemStack item = this.itemStack.clone();
+        if(slot > inventory.getSize() || slot < 0){
+            Bukkit.getLogger().warning("[SMV-PORTFEL] Wprowadzono nieprawidlowy slot: "+slot);
+            return;
+        }
         item.editMeta(meta -> {
-            if(meta.displayName() != null){
+            if(meta.hasDisplayName()){
                 meta.displayName(ChatUtil.fix(PlaceholderAPI.setPlaceholders(player,
                         MiniMessage.miniMessage().serialize(meta.displayName()))));
             }
-            if(meta.lore() != null){
+            if(meta.hasLore()){
                 List<Component> newLore = new ArrayList<>();
                 meta.lore().forEach(comp -> {
                     newLore.add(ChatUtil.fix(PlaceholderAPI.setPlaceholders(player,
