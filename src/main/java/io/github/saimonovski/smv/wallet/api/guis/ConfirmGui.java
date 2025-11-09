@@ -15,6 +15,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfirmGui implements InventoryHolder, Gui {
@@ -29,11 +30,18 @@ public class ConfirmGui implements InventoryHolder, Gui {
         confirmButton.setProduct(productToBuy);
         CancelButton cancelButton = config.cancelButton();
         int itemSlot = config.configFile().getInt("confirm-gui.item-slot", 0);
+        List<Integer> confirmButtonSlots = config.confirmButton().slots();
+        List<Integer> cancelButtonSlots = config.cancelButton().slots();
+
+        confirmButtonSlots.forEach(slot ->{
+            buttons.put(slot,InventoryButton.of(confirmButton.action(),
+                    confirmButton.itemStack()));
+        });
         buttons.put(itemSlot,InventoryButton.of(e -> e.setCancelled(true),productToBuy.itemStack()));
-        buttons.put(confirmButton.slot(),InventoryButton.of(confirmButton.action(),
-                confirmButton.itemStack()));
-        buttons.put(cancelButton.slot(),InventoryButton.of(cancelButton.action(),
-                cancelButton.itemStack()));
+        cancelButtonSlots.forEach(slot ->{
+            buttons.put(slot,InventoryButton.of(cancelButton.action(),
+                    cancelButton.itemStack()));
+        });
         this.config = config;
 
     }

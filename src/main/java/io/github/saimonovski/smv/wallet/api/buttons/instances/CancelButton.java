@@ -8,10 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public interface CancelButton extends Button {
     Config config();
+    default int slot(){
+        return -1;
+    }
     @NotNull
     @Override
    default Consumer<InventoryClickEvent> action(){
@@ -22,4 +26,5 @@ public interface CancelButton extends Button {
                     Replacer.replacePlayer((Player) e.getWhoClicked()));
         };
     }
+    List<Integer> slots();
 }

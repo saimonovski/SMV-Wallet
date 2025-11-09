@@ -43,7 +43,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
              YamlDocument.create(new File(wallet.getDataFolder(),"gem-config.yml"),
                      Objects.requireNonNull(wallet.getResource("gem-config.yml")),
                      GeneralSettings.builder().setSerializer(SpigotSerializer.getInstance()).build(),
-                     LoaderSettings.builder().setAutoUpdate(true).build(), DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build());
+                      DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build());
     }
 
     @NotNull
@@ -228,8 +228,8 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             }
 
             @Override
-            public int slot() {
-                return loadSlot(configFile().getSection("confirm-gui.confirm-button"));
+            public List<Integer> slots() {
+                return configFile().getSection("confirm-gui.confirm-button").getIntList("slot",List.of(0));
             }
         };
     }
@@ -271,9 +271,8 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             }
 
             @Override
-            public int slot() {
-                return loadSlot(configFile().getSection("confirm-gui.cancel-button"));
-
+            public List<Integer> slots() {
+                return configFile().getSection("confirm-gui.cancel-button").getIntList("slot",List.of(0));
             }
         };
     }

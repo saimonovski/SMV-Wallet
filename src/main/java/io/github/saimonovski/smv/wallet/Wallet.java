@@ -5,9 +5,11 @@ import io.github.saimonovski.smv.wallet.api.object.Config;
 import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import io.github.saimonovski.smv.wallet.api.object.GemWallet;
 import io.github.saimonovski.smv.wallet.cloud.CMDManager;
+import io.github.saimonovski.smv.wallet.messages.ChatUtil;
 import io.github.saimonovski.smv.wallet.placeholderapi.GemBalance;
 import io.github.saimonovski.smv.wallet.system.wallet.core.listeners.InventoryClickListener;
 import io.github.saimonovski.smv.wallet.placeholderapi.PlayerBalance;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,8 +26,23 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
 
     @Override
     public void onEnable() {
-    getLogger().info("Ladowanie pluginu...");
-    getLogger().info("Verse-Wallet by saimonovski");
+
+
+
+        Bukkit.getConsoleSender().sendMessage(ChatUtil.fix("""
+<b><gradient:#D200FF:#FFB1FD>
+____   ____                                      __      __        .__  .__          __   
+\\   \\ /   /___________  ______ ____             /  \\    /  \\_____  |  | |  |   _____/  |_ 
+ \\   Y   // __ \\_  __ \\/  ___// __ \\    ______  \\   \\/\\/   /\\__  \\ |  | |  | _/ __ \\   __\\
+  \\     /\\  ___/|  | \\/\\___ \\\\  ___/   /_____/   \\        /  / __ \\|  |_|  |_\\  ___/|  |  
+   \\___/  \\___  >__|  /____  >\\___  >             \\__/\\  /  (____  /____/____/\\___  >__|  
+              \\/           \\/     \\/                   \\/        \\/               \\/      
+</gradient></b>
+<gradient:#FFB1FD:#9300A2>author: saimonovski, powered by saimverse</gradient>
+"""));
+
+
+        getLogger().info("Version: "+getPluginMeta().getVersion());
         getLogger().info("ladowanie configow...");
         try {
             this.config = new io.github.saimonovski.smv.wallet.system.wallet.core.objects.Config(this);
@@ -58,7 +75,7 @@ public final class Wallet extends JavaPlugin implements io.github.saimonovski.sm
         getLogger().info("Ladowanie Placeholderow...");
         new GemBalance(this).register();
         new PlayerBalance(this).register();
-        getLogger().info("Plugin Wlaczony, milej zabawy, w razie pytan odwiedz https://saimverse.pl/");
+        getLogger().info("Plugin Wlaczony, milej zabawy, w razie pytan odwiedz https://saimverse.pl/ badz skontaktuj sie dc: saimonovski");
     }
 
     @Override

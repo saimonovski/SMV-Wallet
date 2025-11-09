@@ -18,6 +18,7 @@ import io.github.saimonovski.smv.wallet.api.object.EconomyProvider;
 import io.github.saimonovski.smv.wallet.messages.Message;
 import io.github.saimonovski.smv.wallet.messages.MessageType;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +44,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
              YamlDocument.create(new File(wallet.getDataFolder(),"config.yml"),
                      Objects.requireNonNull(wallet.getResource("config.yml")),
                      GeneralSettings.builder().setSerializer(SpigotSerializer.getInstance()).build(),
-                     LoaderSettings.builder().setAutoUpdate(true).build(), DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build());
+                      DumperSettings.DEFAULT, UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build());
     }
 
     @NotNull
@@ -107,6 +108,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
 
     @Override
     public @NotNull MainGui mainGui() {
+
         MainGui.Builder gui = MainGui.builder()
                 .setSize(getMainGuiSize() %9 == 0 ? getMainGuiSize() : 54)
                 .setTitle(getMainGuiTitle())
@@ -115,6 +117,7 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
                         .addButton(exitButton().slot(), exitButton().build());
 
         categories().forEach(gui::addCategory);
+
         return gui.build();
     }
 
@@ -223,8 +226,8 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             }
 
             @Override
-            public int slot() {
-                return loadSlot(configFile().getSection("confirm-gui.confirm-button"));
+            public List<Integer> slots() {
+                return configFile().getSection("confirm-gui.confirm-button").getIntList("slot",List.of(0));
             }
         };
     }
@@ -266,9 +269,8 @@ public class Config implements io.github.saimonovski.smv.wallet.api.object.Confi
             }
 
             @Override
-            public int slot() {
-                return loadSlot(configFile().getSection("confirm-gui.cancel-button"));
-
+            public List<Integer> slots() {
+                return configFile().getSection("confirm-gui.cancel-button").getIntList("slot",List.of(0));
             }
         };
     }

@@ -16,7 +16,7 @@ import java.util.*;
 
 public class MainGui implements InventoryHolder, Gui {
     private final Inventory inventory;
-    private final Map<Integer,InventoryButton> buttonMap;
+    private final Map<Integer, InventoryButton> buttonMap;
     private final Material material;
     private MainGui(int size, Component title, Map<Integer,InventoryButton> map, Material material){
         this.inventory = Bukkit.createInventory(this,size,title);
@@ -47,8 +47,8 @@ public class MainGui implements InventoryHolder, Gui {
     }
 
     public void openInventory(Player player){
-        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory, player));
         BackgroundItem.fillBackGround(this.material,this.inventory, this);
+        this.buttonMap.forEach((key, value) -> value.decorate(key, this.inventory, player));
 
         player.openInventory(getInventory());
     }

@@ -1,7 +1,7 @@
 #Autor pluginu: Saimonovski
 # Config do gemów
 
-config-version: 2
+config-version: 3
 
 #dane logowania do bazy danych, jesli nie uda polaczyc sie z baza danych zostanie uzyta baza lokalna
 database:
@@ -50,7 +50,7 @@ return-button:
     - "<white>Kliknij aby powrocic do glownego menu</white>"
 
 categories:
-  category_id:
+  category:
     title-gui: "<red><bold>Testowa katefgoria</bold></red>"
     display-name: "<red><bold> Kategoria produktow </bold></red>"
     material: "DIAMOND"
@@ -89,13 +89,15 @@ confirm-gui:
     material: "GREEN_WOOL"
     lore:
       - "<white>Kliknij aby potwierdzic</white>"
-    slot: 6
+    slot:
+      - 6
   cancel-button:
     display-name: "<red>Anuluj</red>"
     material: "RED_WOOL"
     lore:
       - "<red>Kliknij aby anulowac</red>"
-    slot: 4
+    slot:
+      - 4
 #  contains-items:  #po kliknieciu sie nic nie stanie poniewaz lista przedmiotow jest zakomentowana
 #  item_id: 1
 items:

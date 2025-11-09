@@ -7,13 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.function.Consumer;
 import static io.github.saimonovski.smv.wallet.messages.replacers.Replacer.*;
 
 public interface ConfirmButton extends Button {
     Product productToBuy();
     Config config();
-
+    @Override
+    default int slot(){
+        return -1;
+    }
     @NotNull
     @Override
    default Consumer<InventoryClickEvent> action(){
@@ -31,4 +35,5 @@ public interface ConfirmButton extends Button {
         };
     }
     void setProduct(Product product);
+    List<Integer> slots();
 }
